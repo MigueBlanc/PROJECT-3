@@ -1,7 +1,7 @@
 public class Project3 {
 
     //WHEN DID YOU FIRST START WORKING ON THIS ASSIGNMENT (date and time): <---------------
-    //ANSWER: SAT FEB 26 @19:22                                            <---------------
+    //ANSWER: SAT FEB 26 @19:20 pm                                         <---------------
 
     //DO NOT ALTER THE MAIN METHOD
     public static void main( String[] args ) {
@@ -36,6 +36,13 @@ public class Project3 {
      * @returns nothing
      */
 
+    private static void go(Food food_1, Food food_2, Food food_3){
+       printMenu(food_1, food_2, food_3);
+
+
+
+    }
+
     /** printMenu - prints the menu of 3 Food options. An item on the menu only gets an option number if there's still
      *              some of it left to sell,
      *              otherwise, its line on the menu is replaced by a message that it's sold out
@@ -49,6 +56,19 @@ public class Project3 {
      *
      * @returns nothing
      */
+    private static void printMenu(Food f1, Food f2, Food f3){
+
+
+        int  remainingFood = Food.getRemainingFood();
+        while (remainingFood > 0){
+            System.out.printf("---Starting units of food --%d\n", Food.getRemainingFood());
+            System.out.printf("---Revenue$%f",sell();
+            System.out.println("On the menu today we have: \n");
+            for
+
+        }
+
+    }
 
     /** sell - sell a food item in certain quantity. Sell at most as many units of the food as you have available
      *         gives user a message if out of the food they chose
@@ -63,5 +83,14 @@ public class Project3 {
      *
      * @returns double - the money you made selling the food units
      */
+    private static double sell(Food f, int howMany){
+        double revenue = 0.0;
+        int dishUnits = f.getUnits();
+        revenue += (f.getPrice() * (double)howMany);
+        if (dishUnits < 0){
+            System.out.println("no more food");
+        }
+        return revenue;
+    }
 
 }
