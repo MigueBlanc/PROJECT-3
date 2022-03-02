@@ -65,7 +65,7 @@ public class Food {
      * @return nothing
      */
     public void substractSoldUnits(int sold){
-        String typeOfDish = getType();
+        this.units -= sold;
         allFood -= sold;
 
     }
