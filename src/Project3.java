@@ -9,8 +9,8 @@ public class Project3 {
     public static void main(String[] args) {
         //THESE ARE YOUR TEST CASES
         //comment a test cases in ONE AT A TIME
-        args = new String[]{"rat-onna-stick", "23", "1.0", "meat pie with personality", "10", "5.7", "soggy mountain dew", "12", "0.7"};
-        //args = new String[]{"yak-butter tea", "20", "0.9", "pie floater", "20", "5.8", "suspiciously fresh thousand-year eggs", "5", "10.5"};
+        //args = new String[]{"rat-onna-stick", "23", "1.0", "meat pie with personality", "10", "5.7", "soggy mountain dew", "12", "0.7"};
+        args = new String[]{"yak-butter tea", "20", "0.9", "pie floater", "20", "5.8", "suspiciously fresh thousand-year eggs", "5", "10.5"};
 
         //create the 3 menu objects with command line arguments
         Food food_1 = new Food(args[0], Integer.parseInt(args[1]), Double.parseDouble(args[2]));
@@ -69,87 +69,88 @@ public class Project3 {
             int choice = keyboard.nextInt();
 
             // selecting food
-            if (choice > 3) {
+
+            if (choice > 3) {                               // validating user's input, allowed range is between 1-3
                 System.out.println("Please enter a valid choice.");
                 continue;
             }
-            System.out.println("\nHow many do you want?");
-            int quantity = keyboard.nextInt();
+            int quantity;
             switch (choice) {
                 case 3:
-                    System.out.printf((food3Units <= 0) ? "We dont have any more %s, try someting else" : "", dish3);
+                    //checking if user's choice is available
+                    if (food_3.getUnits() <= 0) {
+                        System.out.printf("We don't have any more %s, try something else.", dish3);
+                        continue;
+                    }
+                    // only CONTINUE if food3 units equals to 0.
+                    System.out.println("\nHow many do you want?");
+                    quantity = keyboard.nextInt();
                     revenue += sell(food_3, quantity);
+
                     //validating user input
-                    if (quantity > food3Units)
-                        quantity = food3Units;
-                    food3Units -= quantity;
+                    if (quantity > food_3.getUnits())
+                        quantity = food_3.getUnits();
                     food_3.substractSoldUnits(quantity);
-                    remainingFoood -= quantity;
+                   
+                    break;
+
 
                 case 2:
-                    System.out.printf((food2Units <= 0) ? "We don't have any more %s, try something else" : "", dish2);
+                    // checking if user's choice is available
+                    if (food_2.getUnits() < 0) {
+                        System.out.printf("We don't have any more %s, try something else", dish2);
+                        continue;
+                    }
+                    // only CONTINUE if food2 units is equals to 0.
+                    System.out.println("\nHow many do you want?");
+                    quantity = keyboard.nextInt();
                     revenue += sell(food_2, quantity);
+
                     //validating user input
-                    if (quantity > food2Units)
-                        quantity = food2Units;
+                    // if user's input is greater than the amount available, the next condition will set user's input equals to the amount of food2 units available.
+                    if (quantity > food_2.getUnits())
+                        quantity = food_2.getUnits();
 
                     food2Units -= quantity;
                     food_2.substractSoldUnits(quantity);
-                    remainingFoood -= quantity;
+                    break;
 
                 case 1:
-                    System.out.printf((food1Units <= 0) ? "We don't have any more %s, try someting else" : "", dish1);
+                    // checking if user's choice is available
+                    if (food_1.getUnits() <= 0) {
+                        System.out.printf("We don't have any more %s, try something else", dish1);
+                        continue;
+                    }
+                    // only CONTINUE if food1 units is equals to 0.
+                    System.out.println("\nHow many do you want?");
+                    quantity = keyboard.nextInt();
                     revenue += sell(food_1, quantity);
                     //validating user input
-                    if (quantity > food1Units)
-                        quantity = food1Units;
+                    if (quantity > food_1.getUnits())
+                        quantity = food_1.getUnits();
                     food_1.substractSoldUnits(quantity);
-                    food1Units -= quantity;
-                    remainingFoood -= quantity;
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice");
 
-
-//            if (choice == 3 ) {
-//                revenue += sell(food_3, quantity);
-//                //validating user input
-//                if (quantity > food3Units)
-//                    quantity = food3Units;
-//                food3Units -= quantity;
-//                food_3.substractSoldUnits(quantity);
-//                remainingFoood -= quantity;
             }
+                    // total remaining food
+             remainingFoood = Food.getRemainingFood();
+                    System.out.printf("\n----Remaining units of food - %d", remainingFoood);
+                    // remaining units of each dish type
+                    System.out.printf("\n---%d %s; %d %s; %d %s", ((food_1.getUnits() <= -1) ? 0 : food_1.getUnits()), dish1, ((food_2.getUnits() <= -1) ? 0 : food_2.getUnits()), dish2, ((food_3.getUnits() <= -1) ? 0 : food_3.getUnits()), dish3);
+                    System.out.printf("""
 
-            //if ((choice == 2)) {
-//                revenue += sell(food_2,quantity);
-//                //validating user input
-//                if (quantity > food2Units)
-//                    quantity = food2Units;
-//
-//                food2Units -= quantity;
-//                food_2.substractSoldUnits(quantity);
-//                remainingFoood -= quantity;
+                            Revenue $%.2f
+                            -----------""", revenue);
+                  
 
-//            if (choice == 1){
-//                revenue += sell(food_1, quantity);
-//                //validating user input
-//                if(quantity > food1Units)
-//                    quantity = food1Units;    food_1.substractSoldUnits(quantity);
-//                food1Units -= quantity;
-//                remainingFoood -= quantity;
-
-            revenue = revenue + 0.0;
-            // total remaining food
-            System.out.printf("\n----Remaining units of food - %d", remainingFoood);
-            // remaining units of each dish type
-            System.out.printf("\n---%d %s; %d %s; %d %s", ((food1Units <= -1) ? 0 : food1Units), dish1, ((food2Units <= -1) ? 0 : food2Units), dish2, ((food3Units <= -1) ? 0 : food3Units), dish3);
-            System.out.printf("""
-
-                    Revenue $%.2f
-                    -----------""", revenue);
         }
-        //end of loop
-        System.out.println("\nSorry, we are fresh out of everything." +
-                "The Ankh-Morpork Railway meal service is now closed.");
-    }
+            //end of loop
+            System.out.println("\nSorry, we are fresh out of everything." +
+                    "The Ankh-Morpork Railway meal service is now closed.");
+     }
+
 
 
     /**
@@ -179,9 +180,9 @@ public class Project3 {
 
         //print menu
         System.out.println("\nOn the menu today we have: ");
-        System.out.printf(( food1Units == 0 || food1Units < 0) ? "We do not have any more %s\n":"(1) %s\n" , dish1);
-        System.out.printf((food2Units == 0 || food2Units < 0) ? "We do not have any more %s\n":"(2) %s\n" , dish2);
-        System.out.printf((food3Units == 0 || food3Units < 0) ? "We do not have any more %s\n":"(3) %s\n" , dish3);
+        System.out.printf((food1Units <= 0) ? "We do not have any more %s\n":"(1) %s\n" , dish1);
+        System.out.printf((food2Units <= 0) ? "We do not have any more %s\n":"(2) %s\n" , dish2);
+        System.out.printf((food3Units <= 0) ? "We do not have any more %s\n":"(3) %s\n" , dish3);
 
     }
 
@@ -203,25 +204,25 @@ public class Project3 {
         int remainingUnits = f.getUnits();
         String dishType = f.getType();
 
-        //CONDITIONS:
-        if(remainingUnits < 0)
-            System.out.printf("Sorry we are out of %s, try something else", dishType);
         if (howMany == remainingUnits){
             revenue = f.getPrice()* howMany;
-            System.out.printf("That would be %.2f, for %d %s.",revenue,howMany,dishType);
+            System.out.printf("\nThat would be %.2f, for %d %s.",revenue,howMany,dishType);
         }
         if ( howMany > remainingUnits){
             revenue = f.getPrice() * remainingUnits;
-            System.out.printf("I only have %d %s. That would be $%.2f ", remainingUnits, dishType, revenue);
-            f.substractSoldUnits(remainingUnits);
+            System.out.printf("\nI only have %d %s. That would be $%.2f ", remainingUnits, dishType, revenue);
+            //f.substractSoldUnits(remainingUnits);
         }
         if (howMany < remainingUnits){
             revenue = f.getPrice() * howMany;
-            System.out.printf("That would be %.2f for %d %s",revenue,howMany,dishType);
-            f.substractSoldUnits(howMany);
+            System.out.printf("\nThat would be %.2f for %d %s",revenue,howMany,dishType);
+            //f.substractSoldUnits(howMany);
         }
 
         return revenue;
 
     }
+
+
+
 }
