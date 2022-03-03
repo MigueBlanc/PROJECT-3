@@ -43,9 +43,9 @@ public class Project3 {
         int remainingFoood = Food.getRemainingFood();
 
         // number of items
-        int food1Units = food_1.getUnits();
-        int food2Units = food_2.getUnits();
-        int food3Units = food_3.getUnits();
+//        int food1Units = food_1.getUnits();
+//        int food2Units = food_2.getUnits();
+//        int food3Units = food_3.getUnits();
 
         // name of dishes
         String dish1 = food_1.getType();
@@ -59,7 +59,7 @@ public class Project3 {
                 --- %d %s; %d %s; %d %s
                 ------------------
                 revenue %.2f
-                """, food1Units, dish1, food2Units, dish2, food3Units, dish3, revenue);
+                """, food_1.getUnits(), dish1, food_2.getUnits(), dish2, food_3.getUnits(), dish3, revenue);
 
         //Loop ends when remaining food items is equal or less than 0
         while (remainingFoood > 0) {
@@ -97,7 +97,7 @@ public class Project3 {
 
                 case 2:
                     // checking if user's choice is available
-                    if (food_2.getUnits() < 0) {
+                    if (food_2.getUnits() <= 0) {
                         System.out.printf("We don't have any more %s, try something else", dish2);
                         continue;
                     }
@@ -110,8 +110,6 @@ public class Project3 {
                     // if user's input is greater than the amount available, the next condition will set user's input equals to the amount of food2 units available.
                     if (quantity > food_2.getUnits())
                         quantity = food_2.getUnits();
-
-                    food2Units -= quantity;
                     food_2.substractSoldUnits(quantity);
                     break;
 
@@ -137,6 +135,8 @@ public class Project3 {
                     // total remaining food
              remainingFoood = Food.getRemainingFood();
                     System.out.printf("\n----Remaining units of food - %d", remainingFoood);
+
+
                     // remaining units of each dish type
                     System.out.printf("\n---%d %s; %d %s; %d %s", ((food_1.getUnits() <= -1) ? 0 : food_1.getUnits()), dish1, ((food_2.getUnits() <= -1) ? 0 : food_2.getUnits()), dish2, ((food_3.getUnits() <= -1) ? 0 : food_3.getUnits()), dish3);
                     System.out.printf("""
@@ -204,19 +204,21 @@ public class Project3 {
         int remainingUnits = f.getUnits();
         String dishType = f.getType();
 
+        // Validating user's input
         if (howMany == remainingUnits){
             revenue = f.getPrice()* howMany;
             System.out.printf("\nThat would be %.2f, for %d %s.",revenue,howMany,dishType);
+            f.substractSoldUnits(howMany);
         }
         if ( howMany > remainingUnits){
             revenue = f.getPrice() * remainingUnits;
             System.out.printf("\nI only have %d %s. That would be $%.2f ", remainingUnits, dishType, revenue);
-            //f.substractSoldUnits(remainingUnits);
+            f.substractSoldUnits(remainingUnits);
         }
         if (howMany < remainingUnits){
             revenue = f.getPrice() * howMany;
             System.out.printf("\nThat would be %.2f for %d %s",revenue,howMany,dishType);
-            //f.substractSoldUnits(howMany);
+            f.substractSoldUnits(howMany);
         }
 
         return revenue;
