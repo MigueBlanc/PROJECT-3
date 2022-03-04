@@ -58,7 +58,7 @@ public class Project3 {
         while (remainingFoood > 0) {
             printMenu(food_1, food_2, food_3); // print menu method
             Scanner keyboard = new Scanner(System.in);
-            System.out.print("What would you like?");
+            System.out.print("What would you like? ");
             int choice = keyboard.nextInt();
 
             // selecting food
@@ -76,7 +76,7 @@ public class Project3 {
                         continue;
                     }
                     // only CONTINUE if food3 units equals to 0.
-                    System.out.print("How many do you want?");
+                    System.out.print("How many do you want? ");
                     quantity = keyboard.nextInt();
                     revenue += sell(food_3, quantity);
                     break;
@@ -89,7 +89,7 @@ public class Project3 {
                         continue;
                     }
                     // only CONTINUE if food2 units is equals to 0.
-                    System.out.print("How many do you want?");
+                    System.out.print("How many do you want? ");
                     quantity = keyboard.nextInt();
                     revenue += sell(food_2, quantity);
                     break;
@@ -101,7 +101,7 @@ public class Project3 {
                         continue;
                     }
                     // only CONTINUE if food1 units is equals to 0.
-                    System.out.print("How many do you want?");
+                    System.out.print("How many do you want? ");
                     quantity = keyboard.nextInt();
                     revenue += sell(food_1, quantity);
                     break;
@@ -123,6 +123,7 @@ public class Project3 {
 
         }
             //end of loop
+            System.out.println("--------");
             System.out.println("Sorry, we are fresh out of everything.");
             System.out.println("The Ankh-Morpork Railway meal service is now closed.");
      }
@@ -188,7 +189,7 @@ public class Project3 {
         }
         if ( howMany > remainingUnits){
             revenue = f.getPrice() * remainingUnits;
-            System.out.printf("I only have %d %s. That would be $%.2f. Enjoy!\n", remainingUnits, dishType, revenue);
+            System.out.printf("I only have %d %s. That would be $%.2f. \n", remainingUnits, dishType, revenue);
             f.substractSoldUnits(remainingUnits);
         }
         if (howMany < remainingUnits){
